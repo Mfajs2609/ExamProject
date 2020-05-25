@@ -1,0 +1,32 @@
+{
+  "name": "examproject",
+  "version": "1.0.0",
+  "description": "ExamProject in Fullstack Node.js Autumn 2020",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js 3000",
+    "start-dev": "nodemon app.js 3000",
+    "migrate:make": "knex migrate:make",
+    "migrate:latest": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mfajs2609/ExamProject.git"
+  },
+  "author": "Mathias Hellesøe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mfajs2609/ExamProject/issues"
+  },
+  "homepage": "https://github.com/Mfajs2609/ExamProject#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "knex": "^0.21.1",
+    "mysql": "^2.18.1",
+    "objection": "^2.1.3"
+  }
+}
