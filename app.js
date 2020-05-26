@@ -33,6 +33,8 @@ Model.knex(knex);
 const authRoute = require('./routes/loginAuth/auth.js');
 app.use(authRoute);
 
+const userRoute = require('./routes/user/user.js');
+app.use(userRoute);
 
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + '/public'));

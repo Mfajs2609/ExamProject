@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    <div class="signup-form">
+        <h1>Create User</h1>
+        <p>Try creating a user with a 10minutte email.</p>
+        <form action="/signup" method="POST">
+            <input type="text" name="username" placeholder="Brugernavn" required>
+            <input type="text" name="email" placeholder="email" required>
+            <input type="password" name="password" placeholder="Adgangskode" required>
+            <input id="submit_button" type="submit" name="create" value="Create">
+        </form>
+    </div>
+</body>
+</html>
