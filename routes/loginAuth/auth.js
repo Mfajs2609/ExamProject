@@ -20,9 +20,9 @@ router.get('/', (req, res) => {
 
 router.get('/home', (req, res) => {
     if (req.session.login) {
-        //const navbarPage = fs.readFileSync("./public/navbar/navbar.html", "utf8");
+        const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
         const homePage = fs.readFileSync("./public/home/home.html", "utf8");
-        return res.send(homePage);
+        return res.send(navbar + homePage);
     } else {
         return res.redirect('/login');
     }

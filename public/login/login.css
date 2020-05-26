@@ -1,0 +1,41 @@
+
+
+
+
+
+.login-form{
+    margin: auto;
+    text-align: center;
+    width: 400px;
+    font-family: Tahoma, Geneva, sans-serif;
+    border-radius: 2px solid black;
+}
+
+.login-form h1 {
+    text-align: center;
+    font-size: 24px;
+    padding: 20px 0 20px;
+}
+
+.login-form input[type="submit"]{
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    padding: 0.40rem 1.5rem;
+    border-radius: 4rem;
+    background-color: gray;
+}
+
+.login-form input[type="username"]{
+  text-align: center;
+  height: auto;
+  border-radius: 3rem;
+  
+}
+
+.login-form input[type="password"]{
+    text-align: center;
+    height: auto;
+    border-radius: 3rem;
+  }
+

@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/login/login.css">
 </head>
 
 <body>
+    
     <div class="login-form">
         <h1>Log ind</h1>
         <form action="/home" method="POST">
-            <input type="text" name="username" placeholder="Brugernavn" required>
+            <input type="username" name="username" placeholder="Brugernavn" required>
             <input type="password" name="password" placeholder="Adgangskode" required>
             <input type="submit" name="login" value="Log ind">
         </form>
-        <p>New to the system?</p>
-        <form action="/createuser" method="GET">
-            <input type="submit" name="signup" value="Signup">
-        </form>
-        <br>
-        <p>Testing:</p>
-        <p>Username: admin</p>
-        <p>Password: password</p>
     </div>
+    <p>New to the system?</p>
+    <form action="/createuser" method="GET">
+        <input type="submit" name="signup" value="Signup">
+    </form>
+    <br>
+    <p>Testing:</p>
+    <p>Username: admin</p>
+    <p>Password: password</p>
+    
 </body>
 </html>
