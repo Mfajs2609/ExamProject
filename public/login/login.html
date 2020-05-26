@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/login/login.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
 <body>
+    <div class="card mx-auto" style="text-align: center; width: 20rem; margin-top: 2em; padding-bottom: 2em;">
+        <div style="padding-top: 2.5em;">
+            <h1>Log ind</h1>
+            <form action="/home" method="POST">
+                <input class="form-control-sm" style="text-align: center;" type="username" name="username" placeholder="Brugernavn" required>
+                <input class="form-control-sm" style="text-align: center;" type="password" name="password" placeholder="Adgangskode" required>
+                <p class="form-text text-muted">Password needs to be 8 characters long</p>
     
-    <div class="login-form">
-        <h1>Log ind</h1>
-        <form action="/home" method="POST">
-            <input type="username" name="username" placeholder="Brugernavn" required>
-            <input type="password" name="password" placeholder="Adgangskode" required>
-            <input type="submit" name="login" value="Log ind">
+                <br>
+                <div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>   
+            </form>
+        </div>
+        <div style = "text-align: center; padding-top: 1em;">
+            <p class="form-text text-muted">New to the system?</p>
+            <form action="/createuser" method="GET">
+                <button type="submit" class="btn btn-primary">Signup</button>
         </form>
+        </div>
     </div>
-    <p>New to the system?</p>
-    <form action="/createuser" method="GET">
-        <input type="submit" name="signup" value="Signup">
-    </form>
+    
     <br>
     <p>Testing:</p>
     <p>Username: admin</p>
