@@ -38,7 +38,10 @@ app.use(userRoute);
 
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + "/public/home"));
+
+
+
+
 
 
 //Server

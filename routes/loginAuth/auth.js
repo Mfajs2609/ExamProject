@@ -46,10 +46,10 @@ router.post('/home', async (req, res) => {
             if(passwordValidation.length === 1) {
                 bcrypt.compare(password, passwordValidation[0].password).then(compare => {
                     if(compare === true) {
-                        console.log("test222")
                         req.session.login = true;
                         req.session.username = username;
                         req.session.email = passwordValidation[0].email;
+                        console.log(req.session)
                         return res.redirect('/home');
                         
                     } else {
