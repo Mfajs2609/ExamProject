@@ -4,7 +4,7 @@ const app = express();
 const session = require('express-session')
  
 //Port
-const PORT = 3000;
+const PORT = process.argv[2];
 
 //Passing jSON-objects and form data in HTML-files.
 app.use(express.urlencoded({ extended: false }));
@@ -30,10 +30,10 @@ const knex = Knex(knexfile.development);
 Model.knex(knex);
 
 //router references
-const authRoute = require('./routes/loginAuth/auth.js');
+const authRoute = require('./routes/loginAuth/authRouter.js');
 app.use(authRoute);
 
-const userRoute = require('./routes/user/user.js');
+const userRoute = require('./routes/user/userRouter.js');
 app.use(userRoute);
 
 //Getting access to static files such as CSS, images, videos etc.
