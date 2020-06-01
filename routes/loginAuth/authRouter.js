@@ -7,13 +7,22 @@ const session = require('express-session');
 
 //GET methods for login
 router.get('/login', (req, res) => {
+    if (!req.session.login){
     const loginPage = fs.readFileSync("./public/login/login.html", "utf8");
     return res.send(loginPage);
+    }   
+    else {
+        return res.redirect("/home")
+    }
 });
 
 router.get('/', (req, res) => {
-    const loginPage = fs.readFileSync("./public/login/login.html", "utf8");
-    return res.send(loginPage);
+    if(req.session.login){
+        return res.redirect("/home")
+    } 
+    else {
+    return res.redirect("/login");
+    }
 });
 
 router.get('/home', (req, res) => {

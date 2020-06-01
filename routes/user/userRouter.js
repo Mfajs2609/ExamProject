@@ -11,7 +11,12 @@ router.get('/createuser', (req, res) => {
 });
 
 router.get('/getUsername', (req, res) => {
+    if (req.session.login){
     return res.send({ response: req.session});
+    } else {
+        res.redirect("/login")
+    }
+
 });
 
 //Signup with password encryptet
