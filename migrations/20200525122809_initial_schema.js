@@ -8,7 +8,11 @@ exports.up = function(knex) {
         table.string('email').notNullable();
 
         table.timestamp('created_at').defaultTo(knex.fn.now());
-    });
+    })
+
+    .createTable('discussions', table => {
+        table.increments('id');
+    })
 };
 
 exports.down = function(knex) {
