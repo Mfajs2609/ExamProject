@@ -20,19 +20,20 @@
             </button>
         </div>
 
-
-        <form class="form-inline my-2 my-lg-0" >
-            <a style="padding-right: 1em;" href="/" data-toggle="tooltip" title="Signed in as: " id="username" data-placement="bottom">
-                <img id="Userlogo" src="../image/User.png" width="40" height="40" alt="ExamProject"></img>
-            </a>
-            <form action="/logout" method="POST" name="logout">
-                <input type="submit" value="logout" id="logout" class="btn btn-danger">
+        <div class="form-inline my-2 my-lg-0">
+            <form>
+                <a style="padding-right: 1em;" data-toggle="tooltip" title="Signed in as: " id="username" data-placement="bottom">
+                    <img id="Userlogo" src="../image/User.png" width="40" height="40" alt="ExamProject"></img>
+                </a>
             </form>
-          </form>
+
+            <form action="/logout" method="POST" name="logout">
+                <input type="submit" value="Logout" id="logout" class="btn btn-danger">
+            </form>
+        </div>
 
     </nav>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./navbar.js"></script>
 
     
     

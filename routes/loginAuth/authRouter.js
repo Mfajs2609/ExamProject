@@ -32,9 +32,6 @@ router.post('/home', async (req, res) => {
 
         if(username && password){
             const passwordValidation = await User.query().select('username', 'email', 'password').where('username', username);
-
-            console.log("test", passwordValidation[0].password)
-
             bcrypt.compare(password, passwordValidation[0].password).then(result => console.log(result));
 
             if(passwordValidation.length !== 1) {
@@ -57,51 +54,16 @@ router.post('/home', async (req, res) => {
             }
         }
     } catch (error) {
-
-    }
-
-});
-
-
-/*
-//POST method for home. 
-router.post('/home', async (req, res) => {
-
-    //variable for the form data.
-    const { username, password } = req.body;
-    try {
-        //Selecting username, email and password Where username in the database matches username from the form.
-        const infoCheck = await User.query().select('username', 'email', 'password').where('username', username);
-
-        //Checking if the query found any matches, if not redirect login. 
-        if (infoCheck.length !== 1) {
-            return res.redirect("/login");
-        }
-
-        //If match, Check that password from the form matches the password from the database.
-        if (infoCheck.length === 1){
-            //if true.
-            if (password === infoCheck[0].password){
-                //using the middleware express-session, this will give the user access to the other pages.
-                req.session.login = true;
-                req.session.username = username;
-                req.session.email = infoCheck[0].email;
-                return res.redirect("/home");
-            } else {
-                //if false, redirect to login.
-                return res.redirect("/login")
-            }
-        }
-
-    } catch(error){
-        return res.status(500).send({ response: "Something went wrong with the DB" });
     }
 });
-*/
+
 //POST method for logout
 router.post('/logout', (req, res) => {
     //Again using the middleware express-session.
     //This will make sure that when the user logout, they have to login again before accessing the unauthorized pages.
+    console.log(req.session.login);
+    console.log(req.session.username);
+    console.log(req.session.email);
     req.session.login = undefined;
     req.session.username = undefined;
     req.session.email = undefined;

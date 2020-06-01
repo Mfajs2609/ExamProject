@@ -14,7 +14,6 @@ router.get('/getUsername', (req, res) => {
     return res.send({ response: req.session });
 });
 
-
 //Signup with password encryptet
 router.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
