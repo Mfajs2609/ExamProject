@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 12;
 const session = require('express-session');
 
-
-
 //GET methods for login
 router.get('/login', (req, res) => {
     const loginPage = fs.readFileSync("./public/login/login.html", "utf8");

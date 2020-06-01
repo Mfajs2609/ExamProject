@@ -2,7 +2,10 @@
 const express = require('express');
 const app = express();
 const session = require('express-session')
- 
+
+const chatServer = require('http').createServer(app);
+const io = require('socket.io')(chatServer);
+
 //Port
 const PORT = 3000;
 
@@ -35,6 +38,9 @@ app.use(authRoute);
 
 const userRoute = require('./routes/user/user.js');
 app.use(userRoute);
+
+const chatRoute = require('./routes/chat/chat.js');
+app.use(chatRoute);
 
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + '/public'));
