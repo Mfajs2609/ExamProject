@@ -7,7 +7,7 @@ const chatServer = require('http').createServer(app);
 const io = require('socket.io')(chatServer);
 
 //Port
-const PORT = 3000;
+const PORT = process.argv[2];
 
 //Passing jSON-objects and form data in HTML-files.
 app.use(express.urlencoded({ extended: false }));
@@ -33,10 +33,10 @@ const knex = Knex(knexfile.development);
 Model.knex(knex);
 
 //router references
-const authRoute = require('./routes/loginAuth/auth.js');
+const authRoute = require('./routes/loginAuth/authRouter.js');
 app.use(authRoute);
 
-const userRoute = require('./routes/user/user.js');
+const userRoute = require('./routes/user/userRouter.js');
 app.use(userRoute);
 
 const chatRoute = require('./routes/chat/chat.js');
