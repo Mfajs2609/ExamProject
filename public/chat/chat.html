@@ -19,7 +19,8 @@
             console.log(username)
 
             $("#submit").click(() => {
-               const comment = username + ": " + $("#comment").val();
+               const time = new Date();
+               const comment = time.getHours() + ":" + time.getMinutes() + " " + username + ": " + $("#comment").val();
                $("#comment").val("");
                socket.emit( "User wrote:", { comment });
             });
