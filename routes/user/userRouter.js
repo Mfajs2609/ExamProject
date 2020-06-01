@@ -75,6 +75,7 @@ router.get("/updateUserData", async (req, res) => {
             console.log("USERNAME", username);
             console.log("PASSWORD", password);
             console.log("EMAIL", email);
+            console.log("true session:", req.session)
 
             return res.send({ response: {
                 username: username,
