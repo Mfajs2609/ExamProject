@@ -46,6 +46,17 @@ app.use(chatRoute);
 app.use(express.static(__dirname + '/public'));
 
 
+//Socket Setup
+io.on("connection", socket => {
+    socket.on("Testing", (data) => {
+
+        io.emit("Hello World", {comment: data.comment})
+
+    });
+
+});
+
+
 
 
 
