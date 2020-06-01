@@ -11,7 +11,7 @@ router.get('/createuser', (req, res) => {
 });
 
 router.get('/getUsername', (req, res) => {
-    return res.send({ response: req.session });
+    return res.send({ response: req.session});
 });
 
 //Signup with password encryptet
@@ -48,5 +48,7 @@ router.post('/signup', (req, res) => {
         return res.status(400).send({ response: "username or password missing" });
     }
 });
+
+
 
 module.exports = router;
