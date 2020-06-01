@@ -13,13 +13,14 @@
    <script>
 
       $.get("/getUsername").done(data => {
-         const socket = io.connect("192.168.0.34:3000");
+
+         const socket = io.connect("192.168.0.10:3000");
 
             const username = data.response.username;
             console.log(username)
 
             $("#submit").click(() => {
-               const comment = $("#comment").val();
+               const comment = username + ": " + $("#comment").val();
                $("#comment").val("");
                socket.emit( "User wrote:", { comment });
             });
@@ -27,7 +28,7 @@
 
             socket.on("User:", data => {
                console.log(6)
-               $("#conversation").prepend(`<div>` + username + `: ${data.comment}</div>`);
+               $("#conversation").prepend(`<div>${data.comment}</div>`);
             });
       });
 
