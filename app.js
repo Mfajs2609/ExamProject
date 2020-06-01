@@ -48,10 +48,10 @@ app.use(express.static(__dirname + '/public'));
 
 //Socket Setup
 io.on("connection", socket => {
-    socket.on("Name", (data) => {
+    socket.on("User wrote:", (data) => {
 
-        io.emit("Testing", { comment: data.comment });
-
+        io.emit("User:", { comment: data.comment });
+        
     });
 
 });

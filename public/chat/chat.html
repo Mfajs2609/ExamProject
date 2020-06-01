@@ -16,11 +16,11 @@
       $("#submit").click(() => {
          const comment = $("#comment").val();
          $("#comment").val("");
-         socket.emit( "Name", { comment });
+         socket.emit( "User wrote:", { comment });
       });
   
 
-      socket.on("Testing", data => {
+      socket.on("User:", data => {
          console.log(6)
          $("#conversation").prepend(`<div>${data.comment}</div>`);
       });
