@@ -39,13 +39,15 @@ app.use(authRoute);
 const userRoute = require('./routes/user/userRouter.js');
 app.use(userRoute);
 
-const chatRoute = require('./routes/chat/chat.js');
+const chatRoute = require('./routes/chat/chatRouter.js');
 app.use(chatRoute);
 
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/chat'));
 app.use(express.static(__dirname + "/public/navbar"));
+app.use(express.static(__dirname + "/public/user"));
+
 
 
 //Socket Setup

@@ -14,7 +14,7 @@
 
       $.get("/getUsername").done(data => {
 
-         const socket = io.connect("192.168.0.10:3000");
+         const socket = io.connect("192.168.0.34:3000");
 
             const username = data.response.username;
             console.log(username)
@@ -30,9 +30,7 @@
                console.log(6)
                $("#conversation").prepend(`<div>${data.comment}</div>`);
             });
-      });
-
-    
+      });    
    </script>
 </body>
 </html>
