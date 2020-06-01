@@ -1,12 +1,12 @@
+   <div style="text-align: center;">
+      <h1>Welcome to the chat</h1>
+      <p>Anything on your mind?</p>
 
-   <h1>Welcome to the chat</h1>
-   <p>Anything on your mind?</p>
+      <input id="comment">
+      <button id="submit">Comment</button>
 
-   <input id="comment">
-   <button id="submit">Comment</button>
-
-   <div id="conversation"></div>
-
+      <div id="conversation"></div>
+   </div>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
    <!--<script src="/socket.io/socket.io.js"></script> -->
@@ -14,6 +14,7 @@
 
       $.get("/getUsername").done(data => {
 
+         //ip and port
          const socket = io.connect("192.168.0.10:3000");
 
             const username = data.response.username;
