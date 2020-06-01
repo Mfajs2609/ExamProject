@@ -95,60 +95,68 @@ router.post("/updateUser",(req, res) => {
             confirmPassword,
             email,
             username } = req.body;
+    
+    const updateValidation = User.query().select('username', 'email', 'password').where('username', username);
 
-    try{
-        //Password validation
-        if (confirmPassword !== password) {
-            console.log("testing confirmpassword != password")
-            return res.redirect("/updateUser");
-        }
+    if(username && email && confirmPassword && password) {
 
-        if (password && confirmPassword &&  email && username) {
+        try{
 
-            const CapLetterRegex = /[A-Z]+/g
-            const NumbersRegex = /[0-9]/g
-            const EmailRegex = /[@]+/g
-            const wordRegex = /\w+/g
+            //Password validation
+            bcrypt.compare(confirmPassword, updateValidation[0].password).then(compare => console.log("COMPARISON", compare));
 
-            if (password && confirmPassword) {
 
-                if (password.length < 8) {
-                    return res.status(400).send({ response: "Password must be 8 characters or longer"});
-                }
-
-                if (CapLetterRegex.test(password) == false){
-                    return res.status(400).send({ response: "Password should contain minimum one capital letter"});
-                }
-
-                if (NumbersRegex.test(password) == false) {
-                    return res.status(400).send({ response: "Password should contain minimum one digit"});
-                }
-
-                if (email) {
-                    if (!email.match(EmailRegex)) {
-                        return res.status(400).send({ response: "Email skal indeholde @"});
-                    }
-                }
-
-            if(username) {
-               
-                if(!username.match(wordRegex)) {
-                    return res.status(400).send({ response: "Cannot be null"});
-                }
+            if (confirmPassword !== password) {
+                console.log("testing confirmpassword != password")
+                return res.redirect("/updateUser");
             }
 
-            User.query().where('username', req.session.username).update({
-                username: req.body.username,
-                password: req.body.password,
-                email: req.body.email
-            }).then(createdUser => {
-                return res.redirect("/updateUser");
-            })
-        }
-        }
-        } catch {
-    }
+            if (password && confirmPassword &&  email && username) {
 
+                const CapLetterRegex = /[A-Z]+/g
+                const NumbersRegex = /[0-9]/g
+                const EmailRegex = /[@]+/g
+                const wordRegex = /\w+/g
+
+                if (password && confirmPassword) {
+
+                    if (password.length < 8) {
+                        return res.status(400).send({ response: "Password must be 8 characters or longer"});
+                    }
+
+                    if (CapLetterRegex.test(password) == false){
+                        return res.status(400).send({ response: "Password should contain minimum one capital letter"});
+                    }
+
+                    if (NumbersRegex.test(password) == false) {
+                        return res.status(400).send({ response: "Password should contain minimum one digit"});
+                    }
+
+                    if (email) {
+                        if (!email.match(EmailRegex)) {
+                            return res.status(400).send({ response: "Email skal indeholde @"});
+                        }
+                    }
+
+                    if(username) {
+                
+                        if(!username.match(wordRegex)) {
+                            return res.status(400).send({ response: "Cannot be null"});
+                        }
+                    }
+
+                    User.query().where('username', req.session.username).update({
+                        username: req.body.username,
+                        password: req.body.password,
+                        email: req.body.email
+                    }).then(createdUser => {
+                        return res.redirect("/updateUser");
+                    })
+                }
+            }
+        } catch {
+        }
+    }
     console.log(req.body);
 });
 
