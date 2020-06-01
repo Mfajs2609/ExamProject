@@ -6,7 +6,7 @@ const fs = require('fs');
 
 //GET method for create user
 router.get('/createuser', (req, res) => {
-    const createPage = fs.readFileSync("./public/createuser/createuser.html", "utf8");
+    const createPage = fs.readFileSync("./public/user/createuser.html", "utf8");
     return res.send(createPage);
 });
 
@@ -37,7 +37,7 @@ router.post('/signup', (req, res) => {
                             User.query().insert({
                                 username,
                                 email,
-                                password: hashedPassword
+                                password : hashedPassword
                             }).then(createdUser => {
                                 return res.redirect('/login')
                             });
@@ -67,7 +67,7 @@ router.get("/updateUser", async (req, res) => {
 
 router.get("/updateUserData", async (req, res) => {
     if(req.session.login){
-            const accountInfo = await User.query().select("username", "password", "email").where("username", req.session.username);
+            const accountInfo = await User.query().select("username", "password", "email").where("id", req.session.userId);
             const username = accountInfo[0].username;
             const password = accountInfo[0].password;
             const email = accountInfo[0].email;
@@ -75,7 +75,6 @@ router.get("/updateUserData", async (req, res) => {
             console.log("USERNAME", username);
             console.log("PASSWORD", password);
             console.log("EMAIL", email);
-            console.log("true session:", req.session)
 
             return res.send({ response: {
                 username: username,
@@ -90,74 +89,86 @@ router.get("/updateUserData", async (req, res) => {
 
 //PUT METHODS
 //Validation
-router.post("/updateUser",(req, res) => {
+router.post("/updateUser", async (req, res) => {
     const { password,
             confirmPassword,
             email,
             username } = req.body;
     
-    const updateValidation = User.query().select('username', 'email', 'password').where('username', username);
+    console.log("step 1");
 
-    if(username && email && confirmPassword && password) {
+    try{
 
-        try{
+        // if (password && confirmPassword &&  email && username) {
+
+        //     const CapLetterRegex = /[A-Z]+/g
+        //     const NumbersRegex = /[0-9]/g
+        //     const EmailRegex = /[@]+/g
+        //     const wordRegex = /\w+/g
+
+        //     if (password && confirmPassword) {
+
+        //         if (password.length < 8) {
+        //             return res.status(400).send({ response: "Password must be 8 characters or longer"});
+        //         }
+
+        //         if (CapLetterRegex.test(password) == false){
+        //             return res.status(400).send({ response: "Password should contain minimum one capital letter"});
+        //         }
+
+        //         if (NumbersRegex.test(password) == false) {
+        //             return res.status(400).send({ response: "Password should contain minimum one digit"});
+        //         }
+
+        //         if (email) {
+        //             if (!email.match(EmailRegex)) {
+        //                 return res.status(400).send({ response: "Email skal indeholde @"});
+        //             }
+        //         }
+
+        //         if(username) {
+            
+        //             if(!username.match(wordRegex)) {
+        //                 return res.status(400).send({ response: "Cannot be null"});
+        //             }
+        //         }
+        //     }
+        // }
+        
+
+
+        if(username && email && confirmPassword && password) {
+            console.log("step 2");
 
             //Password validation
-            bcrypt.compare(confirmPassword, updateValidation[0].password).then(compare => console.log("COMPARISON", compare));
+            const updateValidation = await User.query().select('id', 'username', 'email', 'password').where('id', req.session.userId);
 
+            console.log("updateValidation", updateValidation);
 
-            if (confirmPassword !== password) {
-                console.log("testing confirmpassword != password")
-                return res.redirect("/updateUser");
-            }
+            console.log("step 3");
 
-            if (password && confirmPassword &&  email && username) {
+            if(updateValidation.length === 1) {
+                console("step 41");
+                bcrypt.compare(confirmPassword, updateValidation[0].password).then(compare => { 
 
-                const CapLetterRegex = /[A-Z]+/g
-                const NumbersRegex = /[0-9]/g
-                const EmailRegex = /[@]+/g
-                const wordRegex = /\w+/g
-
-                if (password && confirmPassword) {
-
-                    if (password.length < 8) {
-                        return res.status(400).send({ response: "Password must be 8 characters or longer"});
+                    if(compare === true) {
+                        console.log("step 4");
+                        User.query().where('id', req.session.userId).update({
+                            username: req.body.username,
+                            password: req.body.password,
+                            email: req.body.email
+                        }).then(createdUser => {
+                            console.log("step 5");
+                            return res.redirect("/updateUser");
+                        })
                     }
-
-                    if (CapLetterRegex.test(password) == false){
-                        return res.status(400).send({ response: "Password should contain minimum one capital letter"});
-                    }
-
-                    if (NumbersRegex.test(password) == false) {
-                        return res.status(400).send({ response: "Password should contain minimum one digit"});
-                    }
-
-                    if (email) {
-                        if (!email.match(EmailRegex)) {
-                            return res.status(400).send({ response: "Email skal indeholde @"});
-                        }
-                    }
-
-                    if(username) {
-                
-                        if(!username.match(wordRegex)) {
-                            return res.status(400).send({ response: "Cannot be null"});
-                        }
-                    }
-
-                    User.query().where('username', req.session.username).update({
-                        username: req.body.username,
-                        password: req.body.password,
-                        email: req.body.email
-                    }).then(createdUser => {
-                        return res.redirect("/updateUser");
-                    })
-                }
-            }
-        } catch {
+                });
+            }           
         }
+    } catch {
     }
-    console.log(req.body);
+    
+    // console.log(req.body);
 });
 
 

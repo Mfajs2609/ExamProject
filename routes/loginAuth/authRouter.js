@@ -40,7 +40,7 @@ router.post('/home', async (req, res) => {
     try {
 
         if(username && password){
-            const passwordValidation = await User.query().select('username', 'email', 'password').where('username', username);
+            const passwordValidation = await User.query().select('id', 'username', 'email', 'password').where('username', username);
             bcrypt.compare(password, passwordValidation[0].password).then(result => console.log(result));
 
             if(passwordValidation.length !== 1) {
@@ -50,10 +50,11 @@ router.post('/home', async (req, res) => {
             if(passwordValidation.length === 1) {
                 bcrypt.compare(password, passwordValidation[0].password).then(compare => {
                     if(compare === true) {
+                        req.session.userId = passwordValidation[0].id;
                         req.session.login = true;
                         req.session.username = username;
                         req.session.email = passwordValidation[0].email;
-                        console.log(req.session)
+                        console.log(req.session);
                         return res.redirect('/home');
                         
                     } else {
