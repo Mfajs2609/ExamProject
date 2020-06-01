@@ -70,9 +70,6 @@ router.post('/home', async (req, res) => {
 router.post('/logout', (req, res) => {
     //Again using the middleware express-session.
     //This will make sure that when the user logout, they have to login again before accessing the unauthorized pages.
-    console.log(req.session.login);
-    console.log(req.session.username);
-    console.log(req.session.email);
     req.session.login = undefined;
     req.session.username = undefined;
     req.session.email = undefined;
