@@ -13,18 +13,16 @@
    <script>
       const socket = io.connect("localhost:3000");
 
-      console.log(1)
       $("#submit").click(() => {
-         console.log(2)
          const comment = $("#comment").val();
-
          $("#comment").val("");
-         socket.emit( "Wrote: ", {comment})
-
+         socket.emit( "User wrote:", { comment });
       });
+  
 
-      socket.on("Wrote", data => {
-         $("#conversation").prepend("<div>${data.comment}</div>");
+      socket.on("User:", data => {
+         console.log(6)
+         $("#conversation").prepend(`<div>${data.comment}</div>`);
       });
    </script>
 </body>

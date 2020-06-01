@@ -48,10 +48,10 @@ app.use(express.static(__dirname + '/public'));
 
 //Socket Setup
 io.on("connection", socket => {
-    socket.on("Testing", (data) => {
+    socket.on("User wrote:", (data) => {
 
-        io.emit("Hello World", {comment: data.comment})
-
+        io.emit("User:", { comment: data.comment });
+        
     });
 
 });
@@ -62,9 +62,9 @@ io.on("connection", socket => {
 
 
 //Server
-const server = app.listen(PORT, (error) => {
+chatServer.listen(PORT, (error) => {
     if (error) {
         console.log("Error starting the server");
     }
-    console.log("This server is running on port", server.address().port);
+    console.log("This server is running on port", chatServer.address().port);
 });
