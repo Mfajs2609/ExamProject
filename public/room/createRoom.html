@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a room</title>
+</head>
+<body>
+    <div class="signup-form">
+        <h1>Create a room with a topic and a description</h1>
+        <form action="/createRoom" method="POST">
+            <input type="text" name="topic" placeholder="Topic" required>
+            <textarea type="text" name="description" placeholder="Description" required></textarea>
+            
+            <input id="submit_button" type="submit" name="create" value="Publish room">
+        </form>
+    </div>
+</body>
+</html>

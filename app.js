@@ -42,6 +42,9 @@ app.use(userRoute);
 const chatRoute = require('./routes/chat/chatRouter.js');
 app.use(chatRoute);
 
+const roomRoute = require('./routes/room/roomRouter.js');
+app.use(roomRoute);
+
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/chat'));
