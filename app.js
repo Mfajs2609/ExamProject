@@ -50,19 +50,12 @@ app.use(express.static(__dirname + "/public/user"));
 
 
 
-//Socket Setup
+//Socket setup
 io.on("connection", socket => {
     socket.on("User wrote:", (data) => {
-
-        io.emit("User:", { comment: data.comment });
-        
+        io.emit("User:", { comment: data.comment }); 
     });
-
 });
-
-
-
-
 
 
 //Server
