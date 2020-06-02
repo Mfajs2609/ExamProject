@@ -43,7 +43,6 @@ router.post('/signup', (req, res) => {
                             });
                         });
                     }
-
                 });
             } catch (error) {
                 return res.status(500).send({ response: "Something went wrong with the DB" });
@@ -67,18 +66,15 @@ router.get("/updateUser", async (req, res) => {
 
 router.get("/updateUserData", async (req, res) => {
     if(req.session.login){
-            const accountInfo = await User.query().select("username", "password", "email").where("id", req.session.userId);
+            const accountInfo = await User.query().select("username", "email").where("id", req.session.userId);
             const username = accountInfo[0].username;
-            const password = accountInfo[0].password;
             const email = accountInfo[0].email;
 
             console.log("USERNAME", username);
-            console.log("PASSWORD", password);
             console.log("EMAIL", email);
 
             return res.send({ response: {
                 username: username,
-                password: password,
                 email: email
                 }});
     } else {
@@ -90,8 +86,8 @@ router.get("/updateUserData", async (req, res) => {
 //PUT METHODS
 //Validation
 router.post("/updateUser", async (req, res) => {
-    const { password,
-            confirmPassword,
+    const { newPassword,
+            currentPassword,
             email,
             username } = req.body;
     
@@ -137,35 +133,43 @@ router.post("/updateUser", async (req, res) => {
         
 
 
-        if(username && email && confirmPassword && password) {
+        if(username && email && currentPassword && newPassword) {
             console.log("step 2");
 
             //Password validation
             const updateValidation = await User.query().select('id', 'username', 'email', 'password').where('id', req.session.userId);
 
             console.log("updateValidation", updateValidation);
+            console.log("length", updateValidation.length);
 
             console.log("step 3");
 
             if(updateValidation.length === 1) {
-                console("step 41");
-                bcrypt.compare(confirmPassword, updateValidation[0].password).then(compare => { 
-
+                console.log("step 41");
+                
+                bcrypt.compare(currentPassword, updateValidation[0].password).then(compare => { 
+                console.log(compare);
                     if(compare === true) {
-                        console.log("step 4");
-                        User.query().where('id', req.session.userId).update({
-                            username: req.body.username,
-                            password: req.body.password,
-                            email: req.body.email
-                        }).then(createdUser => {
-                            console.log("step 5");
-                            return res.redirect("/updateUser");
-                        })
+                        bcrypt.hash(newPassword, saltRounds).then(hashedPassword => {
+
+                            console.log("step 4");
+                            User.query().where('id', req.session.userId).update({
+                                username: req.body.username,
+                                password: hashedPassword,
+                                email: req.body.email
+                            }).then(updatedUser => {
+                                req.session.username = username;
+                                req.session.email = email;
+                                console.log("step 5");
+                                return res.redirect("/updateUser");
+                            })
+                        });
                     }
                 });
             }           
         }
-    } catch {
+    } catch (error) { 
+        console.log(error);
     }
     
     // console.log(req.body);
