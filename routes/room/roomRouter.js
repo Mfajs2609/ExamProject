@@ -3,6 +3,15 @@ const User = require('../../models/User.js');
 const Room = require('../../models/Room.js');
 const fs = require('fs');
 
+router.get('/rooms', async (req, res) => {
+    if(req.session.login){
+        const rooms = await Room.query().select();
+        return res.send({ response: {
+            rooms
+        }});
+    }
+});
+
 router.get('/createRoom', (req, res) => {
 
     if (req.session.login){
