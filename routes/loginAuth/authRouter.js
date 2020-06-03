@@ -7,21 +7,19 @@ const session = require('express-session');
 
 //GET methods for login
 router.get('/login', (req, res) => {
-    if (!req.session.login){
-    const loginPage = fs.readFileSync("./public/login/login.html", "utf8");
-    return res.send(loginPage);
-    }   
-    else {
-        return res.redirect("/home")
+    if (!req.session.login) {
+        const loginPage = fs.readFileSync("./public/login/login.html", "utf8");
+        return res.send(loginPage);
+    } else {
+        return res.redirect("/home");
     }
 });
 
 router.get('/', (req, res) => {
-    if(req.session.login){
-        return res.redirect("/home")
-    } 
-    else {
-    return res.redirect("/login");
+    if (req.session.login) {
+        return res.redirect("/home");
+    } else {
+        return res.redirect("/login");
     }
 });
 
@@ -33,28 +31,25 @@ router.get('/home', (req, res) => {
     } else {
         return res.redirect('/login');
     }
-})
+});
 
 router.post('/home', async (req, res) => {
     const { username, password } = req.body;
     try {
-
-        if(username && password){
+        if (username && password) {
             const passwordValidation = await User.query().select('id', 'username', 'email', 'password').where('username', username);
-            bcrypt.compare(password, passwordValidation[0].password).then(result => console.log(result));
 
-            if(passwordValidation.length !== 1) {
+            if (passwordValidation.length !== 1) {
                 return res.redirect('login');
             }
 
-            if(passwordValidation.length === 1) {
+            if (passwordValidation.length === 1) {
                 bcrypt.compare(password, passwordValidation[0].password).then(compare => {
                     if(compare === true) {
                         req.session.userId = passwordValidation[0].id;
                         req.session.login = true;
                         req.session.username = username;
                         req.session.email = passwordValidation[0].email;
-                        console.log(req.session);
                         return res.redirect('/home');
                         
                     } else {

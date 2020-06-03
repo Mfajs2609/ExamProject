@@ -1,4 +1,5 @@
 const { Model } = require('objection');
+
 const Room = require('./Room.js');
 
 class User extends Model {

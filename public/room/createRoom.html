@@ -6,14 +6,19 @@
     <title>Create a room</title>
 </head>
 <body>
-    <div class="signup-form">
-        <h1>Create a room with a topic and a description</h1>
-        <form action="/createRoom" method="POST">
-            <input type="text" name="topic" placeholder="Topic" required>
-            <textarea type="text" name="description" placeholder="Description" required></textarea>
-            
-            <input id="submit_button" type="submit" name="create" value="Publish room">
-        </form>
+    <div class="signup-form" style="margin-bottom: 2em;">
+        
+        <div style="margin: 0em 1em;">
+            <h1>Create a room with a topic and a description</h1>
+            <form action="/createRoom" method="POST">
+                <input style="width: 18.6em;" type="text" name="topic" placeholder="Topic" required>
+                <br>
+                <br>
+                <textarea rows="10" cols="40" type="text" name="description" placeholder="Description" required></textarea>
+                <br>
+                <input id="submit_button" type="submit" name="create" value="Publish room" class="btn btn-success">
+            </form>
+        </div>
     </div>
 </body>
 </html>
