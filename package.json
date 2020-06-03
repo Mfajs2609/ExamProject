@@ -1,7 +1,7 @@
 {
   "name": "examproject",
   "version": "1.0.0",
-  "description": "ExamProject in Fullstack Node.js Autumn 2020",
+  "description": "Exam project in Fullstack Node.js Autumn 2020",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/Mfajs2609/ExamProject.git"
   },
-  "author": "Mathias Hellesøe",
+  "author": "Mathias Fajstrup Hellesøe, Jeppe Nannestad Dyekjær, Miclo Macario Lopez Larsen",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Mfajs2609/ExamProject/issues"
