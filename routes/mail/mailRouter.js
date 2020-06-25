@@ -1,9 +1,9 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 
 //------------------NodeMailer---------------------
-router.get('/nodeMailer', (req, res) => {
+router.get("/nodeMailer", (req, res) => {
     if(req.session.login) {
         const Navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
         const Page = fs.readFileSync("./public/mail/nodeMailer.html", "utf8");
@@ -14,7 +14,7 @@ router.get('/nodeMailer', (req, res) => {
     }
 });
 
-router.post('/nodeMailer', (req, res) => {
+router.post("/nodeMailer", (req, res) => {
       
     let transporter = nodemailer.createTransport({
         service: "Gmail", 
@@ -27,7 +27,7 @@ router.post('/nodeMailer', (req, res) => {
       }
     });
 
-    // send mail with defined transport object
+    //Send mail with defined transport object
     let mailOptions = {
     from: '"WebContact" <node.exammail2020@gmail.com>', // sender address
     to: "node.exammail2020@gmail.com", // list of receivers
@@ -37,7 +37,7 @@ router.post('/nodeMailer', (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if(error) {
-            return console.log(error)
+            return console.log(error);
         }
     console.log("Message sent", req.body.message);
     return res.redirect("/nodeMailer");
