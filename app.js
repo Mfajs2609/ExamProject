@@ -40,6 +40,9 @@ app.use(roomRoute);
 const userRoute = require("./routes/user/userRouter.js");
 app.use(userRoute);
 
+const mailRoute = require("./routes/mail/mailRouter.js");
+app.use(mailRoute);
+
 //Getting access to static files such as CSS, images, videos etc.
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/public/chat"));
