@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 
 //GET methods
 router.get("/login", (req, res) => {
+
     if (!req.session.login) {
         const loginPage = fs.readFileSync("./public/login/login.html", "utf8");
         return res.send(loginPage);
@@ -23,7 +24,7 @@ router.get("/", (req, res) => {
 
 router.get("/home", (req, res) => {
     if (req.session.login) {
-        const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
+        const navbar =  fs.readFileSync("./public/navbar/navbar.html", "utf8");
         const homePage = fs.readFileSync("./public/home/home.html", "utf8");
         const footer = fs.readFileSync("./public/footer/footer.html", "utf8");
         return res.send(navbar + homePage + footer);
@@ -43,8 +44,8 @@ router.post("/home", async (req, res) => {
                 return res.redirect("login");
             }
 
-            if (passwordValidation.length === 1) {
-                bcrypt.compare(password, passwordValidation[0].password).then(compare => {
+            if (passwordValidation.length === 1) { //Minimum one user in the database with the chosen name found
+                bcrypt.compare(password, passwordValidation[0].password).then(compare => { //Arrow function - promise then() - awaiting bcrypt.compare() to know the data
                     if (compare === true) {
                         req.session.userId = passwordValidation[0].id;
                         req.session.login = true;
