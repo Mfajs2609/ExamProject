@@ -25,7 +25,8 @@ router.get("/home", (req, res) => {
     if (req.session.login) {
         const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
         const homePage = fs.readFileSync("./public/home/home.html", "utf8");
-        return res.send(navbar + homePage);
+        const footer = fs.readFileSync("./public/footer/footer.html", "utf8");
+        return res.send(navbar + homePage + footer);
     } else {
         return res.redirect("/login");
     }

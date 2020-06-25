@@ -2,7 +2,7 @@
 $.get("/getUsername").done(data => {
 
    //Write host ip address for chat room here
-    const socket = io.connect("192.168.0.34:3000");
+    const socket = io.connect("192.168.0.14:3000");
 
        const username = data.response.username;
 
@@ -10,7 +10,7 @@ $.get("/getUsername").done(data => {
           const time = new Date();
           const comment = time.getHours() + ":" + time.getMinutes() + " " + username + ": " + $("#comment").val();
           $("#comment").val("");
-          socket.emit( "User wrote:", { comment });
+          socket.emit("User wrote:", { comment });
        });
 
        socket.on("User:", data => {
