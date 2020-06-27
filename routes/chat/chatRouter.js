@@ -6,7 +6,8 @@ router.get("/chat", (req, res) => {
     if (req.session.login) {
         const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
         const chatPage = fs.readFileSync("./public/chat/chat.html", "utf8");
-        return res.send(navbar + chatPage);
+        const footer = fs.readFileSync("./public/footer/footer.html", "utf8");
+        return res.send(navbar + chatPage + footer);
     } else {
         return res.redirect("/login");
     }

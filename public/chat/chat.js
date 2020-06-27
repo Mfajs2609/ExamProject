@@ -14,7 +14,6 @@ $.get("/getUsername").done(data => {
        });
 
        socket.on("User:", data => {
-          console.log(6)
           $("#conversation").prepend(`<div>${data.comment}</div>`);
        });
  });    

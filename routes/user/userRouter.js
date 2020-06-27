@@ -18,6 +18,31 @@ router.get("/getUsername", (req, res) => {
     }
 });
 
+router.get("/updateUser", async (req, res) => {
+    if (req.session.login) {
+        const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
+        const page = fs.readFileSync("./public/user/updateUser.html", "utf8");
+        const footer = fs.readFileSync("./public/footer/footer.html", "utf8");
+        return res.send(navbar + page + footer);
+    } else {
+        return res.redirect("/login");
+    }
+});
+
+router.get("/updateUserData", async (req, res) => {
+    if (req.session.login) {
+        const accountInfo = await User.query().select("username", "email").where("id", req.session.userId);
+        const username = accountInfo[0].username;
+        const email = accountInfo[0].email;
+        return res.send({ response: {
+            username: username,
+            email: email
+        }});
+    } else {
+        return res.redirect("/login");
+    }
+});
+
 //POST methods
 router.post("/signup", (req, res) => { //Signup with password encryptet
     const { username, email, password } = req.body;
@@ -50,31 +75,6 @@ router.post("/signup", (req, res) => { //Signup with password encryptet
         return res.status(400).send({ response: "Username or password missing" });
     }
 });
-
-router.get("/updateUser", async (req, res) => {
-    if (req.session.login) {
-        const head = fs.readFileSync("./public/navbar/navbar.html", "utf8");
-        const page = fs.readFileSync("./public/user/updateUser.html", "utf8");
-        return res.send(head + page);
-    } else {
-        return res.redirect("/login");
-    }
-});
-
-router.get("/updateUserData", async (req, res) => {
-    if (req.session.login) {
-        const accountInfo = await User.query().select("username", "email").where("id", req.session.userId);
-        const username = accountInfo[0].username;
-        const email = accountInfo[0].email;
-        return res.send({ response: {
-            username: username,
-            email: email
-        }});
-    } else {
-        return res.redirect("/login");
-    }
-});
-
 
 //POST methods
 router.post("/updateUser", async (req, res) => {
