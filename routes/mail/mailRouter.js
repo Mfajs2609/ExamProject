@@ -2,25 +2,23 @@ const router = require("express").Router();
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 
-//------------------NodeMailer---------------------
 router.get("/nodeMailer", (req, res) => {
     if(req.session.login) {
-        const Navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
-        const Page = fs.readFileSync("./public/mail/nodeMailer.html", "utf8");
-        const Footer = fs.readFileSync("./public/footer/footer.html", "utf8");
-        return res.send(Navbar + Page + Footer);
+        const navbar = fs.readFileSync("./public/navbar/navbar.html", "utf8");
+        const page = fs.readFileSync("./public/mail/nodeMailer.html", "utf8");
+        const footer = fs.readFileSync("./public/footer/footer.html", "utf8");
+        return res.send(navbar + page + footer);
     } else {
         return res.redirect("/login");
     }
 });
 
 router.post("/nodeMailer", (req, res) => {
-      
     let transporter = nodemailer.createTransport({
         service: "Gmail", 
     auth: {
-        user: "node.exammail2020@gmail.com", // generated ethereal user
-        pass: "Exammail2020" // generated ethereal password
+        user: "node.exammail2020@gmail.com", 
+        pass: "Exammail2020"
     }, 
       tls: { //Added as script, because the system is not running on an online domain but as a localhost service.
         rejectUnauthorized: false
@@ -43,6 +41,5 @@ router.post("/nodeMailer", (req, res) => {
     return res.redirect("/nodeMailer");
     });
 });
-
 
 module.exports = router;
