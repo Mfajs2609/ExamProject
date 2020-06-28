@@ -2,7 +2,7 @@
 $.get("/getUsername").done(data => {
 
    //Write host ip address for chat room here
-    const socket = io.connect("192.168.0.34:3000");
+    const socket = io.connect("54.86.216.150:80");
 
        const username = data.response.username;
 
